@@ -1,0 +1,23 @@
+{
+  "name": "cricket-scoreboard-overlay",
+  "version": "1.0.0",
+  "description": "A live cricket scoreboard overlay for OBS using Node.js and CricHeroes API data.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "cricket",
+    "scoreboard",
+    "overlay",
+    "obs",
+    "live",
+    "node.js"
+  ],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  }
+}
