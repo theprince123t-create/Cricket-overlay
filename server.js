@@ -1,10 +1,10 @@
 const express = require('express');
-const fetch = require('node-fetch'); // Is library ko install karna padega
+const fetch = require('node-fetch');
 const path = require('path');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Yeh line ab dynamic port use karegi
 
-// Serve static files from the root directory
+// Serve static files from the project's root directory
 app.use(express.static(path.join(__dirname, '/')));
 
 // API endpoint to fetch live data from CricHeroes URL
@@ -20,6 +20,5 @@ app.get('/live-data', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-    console.log(`Live overlay at http://localhost:${port}/overlay.html`);
+    console.log(`Server is running on port ${port}`);
 });
