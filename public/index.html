@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scoreboard Control</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Cricket Scoreboard Control Panel</h1>
+
+    <div class="control-panel">
+        <label for="team1-name">Team 1 Name:</label>
+        <input type="text" id="team1-name" value="Ranchhod Reda">
+        <label for="team1-score">Team 1 Score:</label>
+        <input type="number" id="team1-score" value="0">
+        <label for="team1-wickets">Team 1 Wickets:</label>
+        <input type="number" id="team1-wickets" value="0">
+
+        <label for="team2-name">Team 2 Name:</label>
+        <input type="text" id="team2-name" value="Meer Khan">
+        <label for="team2-score">Team 2 Score:</label>
+        <input type="number" id="team2-score" value="0">
+        <label for="team2-wickets">Team 2 Wickets:</label>
+        <input type="number" id="team2-wickets" value="0">
+        
+        <br><br>
+
+        <label for="crr">CRR:</label>
+        <input type="text" id="crr" value="0.00">
+        <label for="over-ball">Over/Ball:</label>
+        <input type="text" id="over-ball" value="0.0/0 (8)">
+
+        <label for="striker-name">Striker Name:</label>
+        <input type="text" id="striker-name" value="Ranchhod Reda">
+        <label for="striker-runs">Striker Runs:</label>
+        <input type="number" id="striker-runs" value="0">
+        <label for="striker-balls">Striker Balls:</label>
+        <input type="number" id="striker-balls" value="0">
+
+        <label for="non-striker-name">Non-striker Name:</label>
+        <input type="text" id="non-striker-name" value="Lokendra Singh">
+        <label for="non-striker-runs">Non-striker Runs:</label>
+        <input type="number" id="non-striker-runs" value="0">
+        <label for="non-striker-balls">Non-striker Balls:</label>
+        <input type="number" id="non-striker-balls" value="0">
+
+        <label for="bowler-name">Bowler Name:</label>
+        <input type="text" id="bowler-name" value="Meer Khan">
+        <label for="bowler-runs">Bowler Runs:</label>
+        <input type="number" id="bowler-runs" value="0">
+        <label for="bowler-wickets">Bowler Wickets:</label>
+        <input type="number" id="bowler-wickets" value="0">
+        
+        <br><br>
+
+        <button onclick="updateScoreboard()">Update Scoreboard</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
