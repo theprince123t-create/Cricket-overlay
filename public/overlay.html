@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Live Overlay</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: transparent;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .scoreboard-container {
+            /* ... baaki styles wahi rahenge */
+        }
+        /* Apne custom styling yahan add karein */
+    </style>
+</head>
+<body>
+    <div class="scoreboard-container">
+        <div class="team-info team1">
+            <span id="team1-name-display">RR</span>
+            <span id="team1-score-display">0</span> / <span id="team1-wickets-display">0</span>
+        </div>
+        
+        <div class="center-info">
+            <span id="over-ball-display">0.0/0 (8)</span>
+            <span id="crr-display">CRR: 0.00</span>
+        </div>
+
+        <div class="team-info team2">
+            <span id="team2-name-display">LM</span>
+            <span id="team2-score-display">0</span> / <span id="team2-wickets-display">0</span>
+        </div>
+
+        <div class="player-info">
+            <div class="player-box">
+                <span id="striker-name-display">Striker</span> <span id="striker-runs-display">0</span>(<span id="striker-balls-display">0</span>)
+            </div>
+            <div class="player-box">
+                <span id="non-striker-name-display">Non-Striker</span> <span id="non-striker-runs-display">0</span>(<span id="non-striker-balls-display">0</span>)
+            </div>
+            <div class="player-box">
+                <span id="bowler-name-display">Bowler</span> <span id="bowler-runs-display">0</span>/<span id="bowler-wickets-display">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fetchScoreboardData() {
+            // Local proxy server se data fetch karein
+            fetch('/live-data')
+                .then(response => response.json())
+                .then(data => {
+                    const innings = data.props.pageProps.scorecardData.innings[0]; // Pehli innings
+                    const batsmen = data.props.pageProps.scorecardData.players.batsmen;
+                    const bowlers = data.props.pageProps.scorecardData.players.bowlers;
+                    
+                    const team1 = data.props.pageProps.scorecardData.matchInfo.team1;
+                    const team2 = data.props.pageProps.scorecardData.matchInfo.team2;
+
+                    // Scoreboard ko update karein
+                    document.getElementById('team1-name-display').textContent = team1.abbr;
+                    document.getElementById('team1-score-display').textContent = innings.score;
+                    document.getElementById('team1-wickets-display').textContent = innings.wickets;
+
+                    document.getElementById('team2-name-display').textContent = team2.abbr;
+                    // Team 2 ka score abhi live data mein nahi dikhega jab tak uski batting shuru na ho
+
+                    document.getElementById('crr-display').textContent = 'CRR: ' + innings.crr;
+                    document.getElementById('over-ball-display').textContent = innings.overs;
+                    
+                    // Batsmen
+                    const striker = batsmen.find(p => p.isStriker);
+                    const nonStriker = batsmen.find(p => !p.isStriker);
+
+                    if (striker) {
+                        document.getElementById('striker-name-display').textContent = striker.name;
+                        document.getElementById('striker-runs-display').textContent = striker.runs;
+                        document.getElementById('striker-balls-display').textContent = striker.balls;
+                    }
+
+                    if (nonStriker) {
+                        document.getElementById('non-striker-name-display').textContent = nonStriker.name;
+                        document.getElementById('non-striker-runs-display').textContent = nonStriker.runs;
+                        document.getElementById('non-striker-balls-display').textContent = nonStriker.balls;
+                    }
+                    
+                    // Bowler
+                    const currentBowler = bowlers.find(p => p.isCurrentBowler);
+                    if (currentBowler) {
+                        document.getElementById('bowler-name-display').textContent = currentBowler.name;
+                        document.getElementById('bowler-runs-display').textContent = currentBowler.runs;
+                        document.getElementById('bowler-wickets-display').textContent = currentBowler.wickets;
+                    }
+                })
+                .catch(error => console.error('Error fetching scoreboard data:', error));
+        }
+
+        // Har 3 second mein data update karein
+        setInterval(fetchScoreboardData, 3000); 
+        fetchScoreboardData(); // Page load hone par turant data fetch karein
+    </script>
+</body>
+</html>
